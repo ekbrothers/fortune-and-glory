@@ -8,35 +8,37 @@ on:
 jobs:
   process-satellite-data:
     runs-on: ubuntu-latest
-    
+    permissions:
+      contents: read
+      id-token: write
+   
     steps:
-    - uses: actions/checkout@v2
-    
+    - uses: actions/checkout@v4
+   
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.x'
-    
+        python-version: '3.12'
+        cache: 'pip'
+   
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        
+        pip install earthengine-api geemap
+       
     - name: Authenticate Earth Engine
       run: |
-        echo ${{ secrets.EE_SERVICE_ACCOUNT_JSON }} > ee-key.json
-        python -c "import ee; ee.Initialize()"
-      env:
-        EE_SERVICE_ACCOUNT_JSON: ${{ secrets.EE_SERVICE_ACCOUNT_JSON }}
-    
+        echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' > ee-key.json
+        python -c "import ee; ee.Initialize(ee.ServiceAccountCredentials('gee-archaeological-detection@ee-ekbrothers.iam.gserviceaccount.com', 'ee-key.json'))"
+   
     - name: Run preprocessing pipeline
       run: python src/preprocessing.py
       env:
-        REGION_COORDS: ${{ secrets.REGION_COORDS }}
-        DATE_RANGE: ${{ secrets.DATE_RANGE }}
-        
+        PROJECT_ID: ee-ekbrothers
+       
     - name: Upload processing logs
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: processing-logs
         path: logs/
+        retention-days: 7
