@@ -1,7 +1,6 @@
 # preprocessing.py
 
 import ee
-import geemap
 import numpy as np
 from datetime import datetime, timedelta
 import config
@@ -79,10 +78,14 @@ class ArchaeologicalPreprocessor:
         if not start_date:
             end_date = datetime.now()
             start_date = end_date - timedelta(days=config.TEMPORAL_WINDOW)
+        
+        # Convert dates to strings for Earth Engine
+        start_str = start_date.strftime('%Y-%m-%d')
+        end_str = end_date.strftime('%Y-%m-%d')
             
         # Get processed data
-        s1_composite = self.preprocess_sentinel1(start_date, end_date)
-        s2_composite = self.preprocess_sentinel2(start_date, end_date)
+        s1_composite = self.preprocess_sentinel1(start_str, end_str)
+        s2_composite = self.preprocess_sentinel2(start_str, end_str)
         
         # Combine composites
         fused = ee.Image.cat([s1_composite, s2_composite])
@@ -107,20 +110,28 @@ class ArchaeologicalPreprocessor:
         return task
 
 def main():
-    # Initialize preprocessor
-    processor = ArchaeologicalPreprocessor()
-    
-    # Create composite
-    composite = processor.create_composite()
-    
-    # Export result
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    task = processor.export_composite(
-        composite=composite,
-        filename=f'archaeological_composite_{timestamp}'
-    )
-    
-    print("Processing started. Check Earth Engine tasks for progress.")
+    try:
+        # Initialize preprocessor
+        processor = ArchaeologicalPreprocessor()
+        print("Initialized Earth Engine and preprocessor")
+        
+        # Create composite
+        composite = processor.create_composite()
+        print("Created data composite")
+        
+        # Export result
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        task = processor.export_composite(
+            composite=composite,
+            filename=f'archaeological_composite_{timestamp}'
+        )
+        
+        print(f"Export task started with ID: {task.id}")
+        print("Check Earth Engine tasks for progress.")
+        
+    except Exception as e:
+        print(f"Error occurred: {str(e)}")
+        raise
 
 if __name__ == '__main__':
     main()

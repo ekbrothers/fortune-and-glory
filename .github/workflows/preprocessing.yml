@@ -26,10 +26,21 @@ jobs:
         python -m pip install --upgrade pip
         pip install earthengine-api geemap
        
+    - name: Setup Authentication
+      run: |
+        echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' | base64 -d > ee-key.json
+   
     - name: Authenticate Earth Engine
       run: |
-        echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' > ee-key.json
-        python -c "import ee; ee.Initialize(ee.ServiceAccountCredentials('gee-archaeological-detection@ee-ekbrothers.iam.gserviceaccount.com', 'ee-key.json'))"
+        python -c "
+        import ee
+        credentials = ee.ServiceAccountCredentials(
+            'gee-archaeological-detection@ee-ekbrothers.iam.gserviceaccount.com',
+            'ee-key.json'
+        )
+        ee.Initialize(credentials)
+        print('Successfully authenticated with Earth Engine')
+        "
    
     - name: Run preprocessing pipeline
       run: python src/preprocessing.py
