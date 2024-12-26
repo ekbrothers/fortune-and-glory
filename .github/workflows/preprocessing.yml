@@ -1,0 +1,42 @@
+name: Archaeological Data Processing
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'  # Run monthly
+  workflow_dispatch:      # Allow manual triggers
+
+jobs:
+  process-satellite-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Authenticate Earth Engine
+      run: |
+        echo ${{ secrets.EE_SERVICE_ACCOUNT_JSON }} > ee-key.json
+        python -c "import ee; ee.Initialize()"
+      env:
+        EE_SERVICE_ACCOUNT_JSON: ${{ secrets.EE_SERVICE_ACCOUNT_JSON }}
+    
+    - name: Run preprocessing pipeline
+      run: python src/preprocessing.py
+      env:
+        REGION_COORDS: ${{ secrets.REGION_COORDS }}
+        DATE_RANGE: ${{ secrets.DATE_RANGE }}
+        
+    - name: Upload processing logs
+      uses: actions/upload-artifact@v2
+      with:
+        name: processing-logs
+        path: logs/
