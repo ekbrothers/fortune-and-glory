@@ -2,8 +2,8 @@ name: Archaeological Site Detection
 
 on:
   schedule:
-    - cron: '0 0 1 * *'  # Run monthly
-  workflow_dispatch:      # Allow manual triggers
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
 
 jobs:
   detect-sites:
@@ -12,22 +12,26 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Install Earth Engine CLI
-      run: |
-        pip install earthengine-api
+    - name: Install dependencies
+      run: pip install earthengine-api
         
     - name: Setup Authentication
       run: |
         mkdir -p key
         echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' > key/gee-key.json
-        earthengine authenticate --service_account_file key/gee-key.json
-
-    - name: Run detection script
-      run: |
-        earthengine run src/detection.js
+        python -c "
+        import ee
+        credentials = ee.ServiceAccountCredentials(
+            'gee-archaeological-detection@ee-ekbrothers.iam.gserviceaccount.com', 
+            'key/gee-key.json'
+        )
+        ee.Initialize(credentials)
+        print('Successfully authenticated')
+        "
         
-    - name: Cleanup credentials
+    - name: Run detection script
+      run: earthengine run src/detection.js
+
+    - name: Cleanup
       if: always()
-      run: |
-        rm -f key/gee-key.json
-        rm -rf key
+      run: rm -rf key
