@@ -15,23 +15,29 @@ jobs:
     - name: Install dependencies
       run: pip install earthengine-api
         
-    - name: Setup Authentication
+    - name: Run detection script
       run: |
         mkdir -p key
         echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' > key/gee-key.json
         python -c "
         import ee
+        import json
+        
+        # Authenticate
         credentials = ee.ServiceAccountCredentials(
             'gee-archaeological-detection@ee-ekbrothers.iam.gserviceaccount.com', 
             'key/gee-key.json'
         )
         ee.Initialize(credentials)
-        print('Successfully authenticated')
+        
+        # Execute JavaScript file
+        with open('src/detection.js', 'r') as f:
+            script = f.read()
+        
+        # Run the script
+        ee.data.executeJavascript(script)
         "
         
-    - name: Run detection script
-      run: earthengine run src/detection.js
-
     - name: Cleanup
       if: always()
       run: rm -rf key
