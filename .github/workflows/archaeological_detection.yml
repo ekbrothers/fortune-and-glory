@@ -2,6 +2,9 @@ name: Archaeological Site Detection
 
 on:
   workflow_dispatch:  # Allows manual triggering
+  push:
+    branch:
+      - main
 
 jobs:
   detect-sites:
