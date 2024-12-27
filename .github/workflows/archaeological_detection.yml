@@ -16,16 +16,17 @@ jobs:
       run: |
         pip install earthengine-api
         
-  - name: Setup Authentication
-    run: |
-      mkdir -p key
-      echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' > key/gee-key.json
-      # Verify the file exists and has content
-      if [ ! -s key/gee-key.json ]; then
-        echo "Error: Key file is empty or not created"
-        exit 1
-      fi
-      earthengine authenticate --service-account --key-file key/gee-key.json
+    - name: Setup Authentication
+      run: |
+        mkdir -p key
+        echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' > key/gee-key.json
+        # Verify the file exists and has content
+        if [ ! -s key/gee-key.json ]; then
+          echo "Error: Key file is empty or not created"
+          exit 1
+        fi
+        earthengine authenticate --service-account --key-file key/gee-key.json
+
     - name: Run detection script
       run: |
         earthengine run src/detection.js
