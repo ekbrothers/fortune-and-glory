@@ -17,10 +17,10 @@ jobs:
         pip install earthengine-api
         
     - name: Setup Authentication
-    run: |
-      mkdir -p key
-      echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' > key/gee-key.json
-      earthengine authenticate --service_account_file key/gee-key.json
+      run: |
+        mkdir -p key
+        echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' > key/gee-key.json
+        earthengine authenticate --service_account_file key/gee-key.json
 
     - name: Run detection script
       run: |
