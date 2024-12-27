@@ -39,7 +39,18 @@ jobs:
    
     - name: Run detection script
       run: |
-        earthengine --quiet run src/detection.js
+        python -c "
+        import ee
+        import json
+
+        # Read the JavaScript file
+        with open('src/detection.js', 'r') as file:
+            script = file.read()
+
+        # Execute the script through Earth Engine
+        task = ee.data.evaluateFeatureExpression(script)
+        print('Detection task started:', task)
+        "
    
     - name: Cleanup
       if: always()
