@@ -1,44 +1,43 @@
 name: Archaeological Site Detection
 
 on:
-  workflow_dispatch:  # Allows manual triggering of the workflow
-  push:
-    branch:
-      - main
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
   detect-sites:
     runs-on: ubuntu-latest
    
     steps:
-    # First, get our code from the repository
     - uses: actions/checkout@v4
    
-    # Install the Google Cloud SDK which includes Earth Engine tools
-    - name: Install Google Cloud SDK
-      uses: google-github-actions/setup-gcloud@v1
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
-        install_components: 'earthengine-python'  # Make sure we get Earth Engine components
+        python-version: '3.12'
    
-    # Set up authentication using our service account
+    - name: Install Earth Engine CLI
+      run: |
+        python -m pip install --upgrade pip
+        pip install earthengine-api google-cloud-storage
+   
     - name: Setup Authentication
       run: |
-        # Create a directory for our key if it doesn't exist
         mkdir -p key
-        # Decode our service account JSON from GitHub secrets
         echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' > key/gee-key.json
-        # Authenticate to Google Cloud with our service account
-        gcloud auth activate-service-account --key-file=key/gee-key.json
-        # Initialize Earth Engine with the same credentials
-        earthengine authenticate --key-file key/gee-key.json
+        # Initialize Earth Engine with our service account
+        python -c "
+        import ee
+        credentials = ee.ServiceAccountCredentials(
+            'gee-archaeological-detection@ee-ekbrothers.iam.gserviceaccount.com',
+            'key/gee-key.json'
+        )
+        ee.Initialize(credentials)
+        "
    
-    # Run our detection script using Earth Engine
     - name: Run detection script
       run: |
-        # Use the earthengine CLI to run our JavaScript
         earthengine --quiet run src/detection.js
    
-    # Clean up our credentials securely
     - name: Cleanup
-      if: always()  # Run even if previous steps fail
+      if: always()
       run: rm -rf key
