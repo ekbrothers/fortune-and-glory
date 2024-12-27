@@ -1,4 +1,4 @@
-name: Archaeological Detection
+name: Archaeological Site Detection
 
 on:
   schedule:
@@ -16,10 +16,18 @@ jobs:
       run: |
         pip install earthengine-api
         
-    - name: Setup Authentication
+    - name: Create key directory and authenticate
       run: |
+        mkdir -p key
         echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' | base64 -d > key/gee-key.json
         earthengine authenticate --service-account --key-file key/gee-key.json
         
-    - name: Run Detection Script
-      run: earthengine run src/detection.js
+    - name: Run detection script
+      run: |
+        earthengine run src/detection.js
+        
+    - name: Cleanup credentials
+      if: always()
+      run: |
+        rm -f key/gee-key.json
+        rm -rf key
