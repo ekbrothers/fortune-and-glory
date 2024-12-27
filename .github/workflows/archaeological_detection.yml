@@ -12,31 +12,18 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Install dependencies
-      run: pip install earthengine-api
+    - name: Install Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
         
-    - name: Run detection script
+    - name: Setup Authentication
       run: |
         mkdir -p key
         echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' > key/gee-key.json
-        python -c "
-        import ee
-        import json
+        gcloud auth activate-service-account --key-file=key/gee-key.json
         
-        # Authenticate
-        credentials = ee.ServiceAccountCredentials(
-            'gee-archaeological-detection@ee-ekbrothers.iam.gserviceaccount.com', 
-            'key/gee-key.json'
-        )
-        ee.Initialize(credentials)
-        
-        # Execute JavaScript file
-        with open('src/detection.js', 'r') as f:
-            script = f.read()
-        
-        # Run the script
-        ee.data.executeJavascript(script)
-        "
+    - name: Run detection script
+      run: |
+        gcloud alpha earthengine scripts run src/detection.js
         
     - name: Cleanup
       if: always()
