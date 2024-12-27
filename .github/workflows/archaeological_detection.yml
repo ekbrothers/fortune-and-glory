@@ -1,0 +1,25 @@
+name: Archaeological Detection
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'  # Run monthly
+  workflow_dispatch:      # Allow manual triggers
+
+jobs:
+  detect-sites:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install Earth Engine CLI
+      run: |
+        pip install earthengine-api
+        
+    - name: Setup Authentication
+      run: |
+        echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' | base64 -d > key/gee-key.json
+        earthengine authenticate --service-account --key-file key/gee-key.json
+        
+    - name: Run Detection Script
+      run: earthengine run src/detection.js
