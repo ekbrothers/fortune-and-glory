@@ -1,7 +1,7 @@
 name: Archaeological Site Detection
 
 on:
-  workflow_dispatch:  # Allows manual triggering
+  workflow_dispatch:
   push:
     branch:
       - main
@@ -11,53 +11,62 @@ jobs:
     runs-on: ubuntu-latest
    
     steps:
-    # First, we get our code from the repository
     - uses: actions/checkout@v4
    
-    # We'll use Node.js instead of Python because it's the natural environment for JavaScript
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'  # Using a stable LTS version
+        node-version: '18'
    
-    # Install the Earth Engine JavaScript library
     - name: Install Dependencies
       run: |
-        npm init -y  # Create a package.json file
-        npm install @google/earthengine
+        npm init -y
+        npm install @google/earthengine-api
    
-    # Set up our authentication just like before
     - name: Setup Authentication
       run: |
         mkdir -p key
         echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' > key/gee-key.json
 
-    # Create a small JavaScript wrapper to run our detection script
     - name: Create Runner Script
       run: |
-        echo 'const ee = require("@google/earthengine");
+        echo 'const ee = require("@google/earthengine-api");
         const fs = require("fs");
         
         // Read our credentials
-        const privateKey = require("./key/gee-key.json");
+        const privateKey = JSON.parse(fs.readFileSync("./key/gee-key.json", "utf8"));
         
         // Read our detection script
         const detectionScript = fs.readFileSync("./src/detection.js", "utf8");
         
         // Initialize Earth Engine
-        ee.authenticateViaPrivateKey(privateKey, () => {
-          ee.initialize(() => {
-            // Now run our script
-            eval(detectionScript);
-            console.log("Detection script started!");
-          });
-        });' > runner.js
+        ee.data.authenticateViaPrivateKey(
+          privateKey,
+          () => {
+            console.log("Authentication successful");
+            ee.initialize(
+              null,
+              null,
+              () => {
+                console.log("Earth Engine initialized");
+                eval(detectionScript);
+                console.log("Detection script started!");
+              },
+              (err) => {
+                console.error("Error initializing Earth Engine:", err);
+                process.exit(1);
+              }
+            );
+          },
+          (err) => {
+            console.error("Error authenticating:", err);
+            process.exit(1);
+          }
+        );' > runner.js
    
-    # Run our detection script through Node.js
     - name: Run Detection
       run: node runner.js
    
-    # Clean up our credentials as before
     - name: Cleanup
       if: always()
       run: rm -rf key
