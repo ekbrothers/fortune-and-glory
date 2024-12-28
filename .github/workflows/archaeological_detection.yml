@@ -21,7 +21,8 @@ jobs:
     - name: Install Dependencies
       run: |
         npm init -y
-        npm install @google/earthengine-api
+        # Using the correct package name here
+        npm install @google/earthengine
    
     - name: Setup Authentication
       run: |
@@ -30,16 +31,16 @@ jobs:
 
     - name: Create Runner Script
       run: |
-        echo 'const ee = require("@google/earthengine-api");
+        echo 'const ee = require("@google/earthengine");
         const fs = require("fs");
         
-        // Read our credentials
+        // Read and parse our service account credentials
         const privateKey = JSON.parse(fs.readFileSync("./key/gee-key.json", "utf8"));
         
-        // Read our detection script
+        // Load our Earth Engine detection script
         const detectionScript = fs.readFileSync("./src/detection.js", "utf8");
         
-        // Initialize Earth Engine
+        // Set up Earth Engine with our credentials
         ee.data.authenticateViaPrivateKey(
           privateKey,
           () => {
