@@ -11,47 +11,53 @@ jobs:
     runs-on: ubuntu-latest
    
     steps:
+    # First, we get our code from the repository
     - uses: actions/checkout@v4
    
-    - name: Set up Python
-      uses: actions/setup-python@v5
+    # We'll use Node.js instead of Python because it's the natural environment for JavaScript
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
       with:
-        python-version: '3.12'
+        node-version: '18'  # Using a stable LTS version
    
-    - name: Install Earth Engine CLI
+    # Install the Earth Engine JavaScript library
+    - name: Install Dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install earthengine-api google-cloud-storage
+        npm init -y  # Create a package.json file
+        npm install @google/earthengine
    
+    # Set up our authentication just like before
     - name: Setup Authentication
       run: |
         mkdir -p key
         echo '${{ secrets.EE_SERVICE_ACCOUNT_JSON }}' > key/gee-key.json
-        # Initialize Earth Engine with our service account
-        python -c "
-        import ee
-        credentials = ee.ServiceAccountCredentials(
-            'gee-archaeological-detection@ee-ekbrothers.iam.gserviceaccount.com',
-            'key/gee-key.json'
-        )
-        ee.Initialize(credentials)
-        "
-   
-    - name: Run detection script
+
+    # Create a small JavaScript wrapper to run our detection script
+    - name: Create Runner Script
       run: |
-        python -c "
-        import ee
-        import json
-
-        # Read the JavaScript file
-        with open('src/detection.js', 'r') as file:
-            script = file.read()
-
-        # Execute the script through Earth Engine
-        task = ee.data.evaluateFeatureExpression(script)
-        print('Detection task started:', task)
-        "
+        echo 'const ee = require("@google/earthengine");
+        const fs = require("fs");
+        
+        // Read our credentials
+        const privateKey = require("./key/gee-key.json");
+        
+        // Read our detection script
+        const detectionScript = fs.readFileSync("./src/detection.js", "utf8");
+        
+        // Initialize Earth Engine
+        ee.authenticateViaPrivateKey(privateKey, () => {
+          ee.initialize(() => {
+            // Now run our script
+            eval(detectionScript);
+            console.log("Detection script started!");
+          });
+        });' > runner.js
    
+    # Run our detection script through Node.js
+    - name: Run Detection
+      run: node runner.js
+   
+    # Clean up our credentials as before
     - name: Cleanup
       if: always()
       run: rm -rf key
