@@ -4,13 +4,14 @@ Update, December 27, 2024: Implemented with latest Earth Engine API and modern C
 
 ## Table of Contents
 1. [Overview](#overview)
-2. [Research Foundation](#research-foundation)
-3. [Implementation Architecture](#implementation-architecture)
-4. [Setup & Prerequisites](#setup--prerequisites)
-5. [Infrastructure](#infrastructure)
-6. [Running the Detection](#running-the-detection)
-7. [Limitations & Considerations](#limitations--considerations)
-8. [References & Resources](#references--resources)
+2. [Original Research Context](#original-research-context)
+3. [Configuration Parameters Guide](#configuration-parameters-guide)
+4. [Understanding the Technology](#understanding-the-technology)
+5. [Research Foundation](#research-foundation)
+6. [Implementation Architecture](#implementation-architecture)
+7. [Overview of Our Detection Pipeline](#overview-of-our-detection-pipeline)
+8. [Automation and Continuous Monitoring](#automation-and-continuous-monitoring)
+9. [References & Resources](#references--resources)
 
 ## Overview
 
@@ -27,6 +28,124 @@ This project implements the Orengo et al. (2020) approach to archaeological site
 - Secure service account authentication
 - Cloud Storage integration
 - Configurable execution schedules
+
+## Original Research Context
+
+This implementation is based on research that provides important context about the script and its purpose:
+
+### Purpose of the Script
+- Designed to detect archaeological mounds in arid/semi-arid environments
+- Specifically targets the Cholistan Desert in Pakistan, containing important Indus Civilization sites
+- Combines both Sentinel-1 (radar) and Sentinel-2 (multispectral) data for better detection accuracy
+
+### Technical Foundation
+The script's effectiveness comes from combining multiple remote sensing approaches:
+
+#### SAR (Synthetic Aperture Radar) Capabilities
+- Detects soil roughness and texture
+- Penetrates dry, sandy, loose soils
+- Shows compact soil characteristics of archaeological mounds
+
+#### Multispectral Analysis
+- Identifies specific soil signatures associated with ancient settlements
+- Combination with SAR helps discriminate between archaeological mounds and natural features
+
+### Training Data Methodology
+The original research utilized:
+- 25 well-known mound sites total
+  - 5 sites for training
+  - 20 sites for validation
+- Selected clearly visible sites in high-resolution imagery
+- Focused on large, well-preserved sites for initial training
+
+### Environmental Considerations
+- Modern agricultural areas can interfere with detection
+- Sand dunes can partially or completely cover sites
+- Best results come from dahar (mud flat) areas
+- Sites near modern development or irrigation may be harder to detect
+
+## Configuration Parameters Guide
+
+### Core Parameters
+
+#### Map Center Configuration
+```javascript
+mapCenter: {
+    longitude: 72.0428,
+    latitude: 28.8447,
+    zoomLevel: 9
+}
+```
+- Defines the initial view center
+- zoomLevel ranges from 0-24:
+  - 0-3: Global/continental view
+  - 4-6: Country level
+  - 7-9: Regional level
+  - 10-12: Local area
+  - 13-15: City/town level
+  - 16+: Building/street level
+
+#### Iteration Identifier
+```javascript
+iteration: 'it03'
+```
+- Used in naming output files
+- Format: 'it01', 'it02', etc.
+- Affects three export types:
+  1. Probability raster: 'rf128_S1-S2_prob_[iteration]'
+  2. Filtered raster: 'rf128_s1-s2_prob_[iteration]_filter[threshold]_med_r[radius]'
+  3. Vector export: 'vector_rf128_s1-s2_prob_[iteration]_filter[threshold]_med_r[radius]'
+
+#### Classification Parameters
+```javascript
+classification: {
+    numberOfTrees: 128,
+    probabilityThreshold: 0.55,
+    cloudPixelPercentage: 20
+}
+```
+- numberOfTrees: Controls Random Forest complexity
+- probabilityThreshold: 
+  - Higher (>0.55): Better for clear, large mounds
+  - Lower (<0.55): Better for detecting smaller/partial mounds
+  - 0.55: Optimal balance between detection and false positives
+- cloudPixelPercentage: Controls cloud filtering strictness
+
+#### Filtering Parameters
+```javascript
+filtering: {
+    medianFilterRadius: 1
+}
+```
+- Controls noise reduction in final results
+- Larger radius removes more noise but may affect feature edges
+
+#### Date Ranges
+```javascript
+dateRanges: {
+    sentinel1: {
+        start: '2014-10-03',
+        end: '2020-06-05'
+    },
+    sentinel2: {
+        start: '2015-06-23',
+        end: '2020-06-05'
+    }
+}
+```
+- Defines temporal range for satellite data
+- Consider seasonal conditions for your study area
+- Sentinel-1 data available from 2014
+- Sentinel-2 data available from 2015
+
+#### Band Selection
+```javascript
+bands: ['s1vva','s1vha','s1vvd','s1vhd','B2','B3','B4','B5','B6','B7','B8','B8A','B11','B12']
+```
+- Combines both radar and optical bands
+- Radar bands (s1*): Detect structural patterns
+- Optical bands (B*): Capture spectral signatures
+- Critical for feature detection - modify with caution
 
 ## Understanding the Technology
 
