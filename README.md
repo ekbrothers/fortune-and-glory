@@ -29,6 +29,18 @@ This project implements the Orengo et al. (2020) approach to archaeological site
 - Cloud Storage integration
 - Configurable execution schedules
 
+## Research Foundation
+
+This implementation is based on Orengo et al.'s 2020 paper:
+- "Automated detection of archaeological mounds using machine-learning classification of multisensor and multitemporal satellite data"
+- Published in: Proceedings of the National Academy of Sciences
+- [Original paper](https://www.researchgate.net/publication/343098080)
+
+### Implementation Resources
+1. [Earth Engine JavaScript API](https://developers.google.com/earth-engine/guides/getstarted)
+2. [GitHub Actions Documentation](https://docs.github.com/en/actions)
+3. [Original Implementation](https://github.com/horengo/Orengo_et_al_2020_PNAS)
+
 ## Original Research Context
 
 This implementation is based on research that provides important context about the script and its purpose:
@@ -401,20 +413,6 @@ Export.image.toCloudStorage({
 ```
 
 The exported data includes probability maps and filtered results that archaeologists can use to guide field investigations.
-
-## Automation and Continuous Monitoring
-
-Our GitHub Actions workflow automates this entire process on a monthly schedule, enabling:
-- Systematic monitoring of archaeological sites
-- Detection of seasonal patterns
-- Development of temporal site condition databases
-
-We've implemented strict budget controls and automated shutdown procedures to ensure responsible resource usage while maintaining regular monitoring capabilities.
-
-This automated approach transforms traditional archaeological prospection into a systematic, data-driven process while preserving the scientific rigor of established archaeological methods. By combining multiple satellite data sources with machine learning techniques, we can identify subtle landscape features that might indicate archaeological sites worthy of ground investigation.
-
-The system represents a bridge between traditional archaeological expertise and modern computational methods, enabling more efficient and comprehensive archaeological survey work while maintaining high standards of scientific validity.
-
 
 ## References & Resources
 
