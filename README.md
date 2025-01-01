@@ -169,13 +169,87 @@ Google Earth Engine serves as our processing platform. Think of it as a massive 
 
 ### Random Forest Classification
 
-We use a machine learning technique called Random Forest to identify potential archaeological sites. Imagine having a team of 128 experts (in our code, these are decision trees) who each look at different aspects of the landscape. Each "expert" votes on whether a location looks like an archaeological site. We combine their votes to make the final decision.
+We use a machine learning technique called Random Forest to identify potential archaeological sites. This is a traditional machine learning algorithm, not an LLM (Large Language Model), meaning it works purely with numerical data patterns rather than understanding concepts.
+
+#### How Random Forest Works
+
+1. The Forest Structure:
+```javascript
+var classifier = ee.Classifier.smileRandomForest({
+    'numberOfTrees': 128
+})
+```
+- Creates 128 decision trees
+- Each tree is independent and sees different aspects of the data
+- Trees are purely mathematical - they don't understand archaeology, just patterns
+
+2. Decision Trees in Action:
+- Each tree makes a series of yes/no decisions based on data values:
+  * "Is the near-infrared reflection (B8) > 0.3?"
+  * "Is the radar backscatter (s1vva) > -15dB?"
+  * "Is the shortwave infrared (B11) < 0.2?"
+- Trees look at different combinations of:
+  * Radar values (s1vva, s1vha, s1vvd, s1vhd)
+  * Optical bands (B2-B12)
+  * Derived features (band ratios, indices)
+
+Example of a Single Tree's Decision Process:
+```
+                       Is B8 > 0.3?
+                      /           \
+                    Yes           No
+                    /              \
+        Is s1vva > -15dB?     Is B11 < 0.2?
+          /         \           /         \
+        Yes         No        Yes         No
+         |          |          |          |
+      Non-site    Site     Non-site    Non-site
+```
+This shows how one tree might make decisions, but remember:
+- Each of the 128 trees sees different combinations
+- Trees are created automatically during training
+- Actual thresholds are learned from your training data
+
+3. Training Process:
+```javascript
+.train({
+    features: training,
+    classProperty: 'class',
+    inputProperties: CONFIG.bands
+});
+```
+- Each tree gets a random subset of:
+  * Training examples (your marked sites vs. non-sites)
+  * Features (different satellite measurements)
+- Trees learn to split data based on values that best separate sites from non-sites
+
+4. Making Predictions:
+- All 128 trees vote on each location
+- Each tree answers: "Archaeological site or not?"
+- Final probability = percentage of trees voting "yes"
+- Example: If 70 trees vote "site" and 58 vote "non-site":
+  * Probability = 70/128 = 0.547
+  * With threshold of 0.55, this would be classified as "non-site"
+
+5. Why 128 Trees?
+- More trees = more stable predictions
+- Each tree sees different random subsets of data
+- 128 provides good balance between:
+  * Accuracy (more trees = better decisions)
+  * Processing speed (more trees = slower processing)
+  * Overfitting prevention (trees balance each other out)
 
 Our implementation considers various features like:
 - Radar reflections from both Sentinel-1 polarizations
 - Visual and infrared patterns from Sentinel-2
 - Seasonal changes in these patterns
 - Terrain characteristics
+
+The power of Random Forest comes from:
+1. Ensemble Learning: Many simple trees working together
+2. Random Sampling: Each tree sees different data aspects
+3. Majority Voting: Combines all trees' decisions
+4. Probability Output: Can adjust threshold based on needs
 
 ## Research Foundation
 
