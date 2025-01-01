@@ -26,10 +26,10 @@
 	* 5.2. [Google Earth Engine](#GoogleEarthEngine)
 	* 5.3. [Random Forest Classification](#RandomForestClassification)
 		* 5.3.1. [How Random Forest Works](#HowRandomForestWorks)
-* 6. [Research Foundation](#ResearchFoundation-1)
-* 7. [Implementation Architecture](#ImplementationArchitecture)
-	* 7.1. [Platform Components](#PlatformComponents)
-	* 7.2. [Directory Structure](#DirectoryStructure)
+* 6. [Implementation Architecture](#ImplementationArchitecture)
+	* 6.1. [Platform Components](#PlatformComponents)
+	* 6.2. [Directory Structure](#DirectoryStructure)
+* 7. [Detection Pipeline](#DetectionPipeline)
 * 8. [Step-by-Step Analysis Process](#Step-by-StepAnalysisProcess)
 	* 8.1. [Data Collection and Preprocessing](#DataCollectionandPreprocessing)
 		* 8.1.1. [Sentinel-1 Radar Collection](#Sentinel-1RadarCollection)
@@ -300,14 +300,7 @@ The power of Random Forest comes from:
 3. Majority Voting: Combines all trees' decisions
 4. Probability Output: Can adjust threshold based on needs
 
-##  6. <a name='ResearchFoundation-1'></a>Research Foundation
-
-This implementation is based on Orengo et al.'s 2020 paper:
-- "Automated detection of archaeological mounds using machine-learning classification of multisensor and multitemporal satellite data"
-- Published in: Proceedings of the National Academy of Sciences
-- [Original paper](https://www.researchgate.net/publication/343098080)
-
-##  7. <a name='ImplementationArchitecture'></a>Implementation Architecture
+##  6. <a name='ImplementationArchitecture'></a>Implementation Architecture
 
 ###  7.1. <a name='PlatformComponents'></a>Platform Components
 1. **GitHub Repository**
