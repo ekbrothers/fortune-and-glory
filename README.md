@@ -12,7 +12,11 @@
 		* 3.2.1. [SAR (Synthetic Aperture Radar) Capabilities](#SARSyntheticApertureRadarCapabilities)
 		* 3.2.2. [Multispectral Analysis](#MultispectralAnalysis)
 	* 3.3. [Training Data Methodology](#TrainingDataMethodology)
-	* 3.4. [Environmental Considerations](#EnvironmentalConsiderations)
+	* 3.4. [Dataset Creation](#DatasetCreation)
+		* 3.4.1. ["Sites" Feature Collection](#SitesFeatureCollection)
+		* 3.4.2. ["Other" Feature Collection](#OtherFeatureCollection)
+		* 3.4.3. [Best Practices](#BestPractices)
+	* 3.5. [Environmental Considerations](#EnvironmentalConsiderations)
 * 4. [Configuration Parameters Guide](#ConfigurationParametersGuide)
 	* 4.1. [Core Parameters](#CoreParameters)
 		* 4.1.1. [Map Center Configuration](#MapCenterConfiguration)
@@ -107,7 +111,45 @@ The original research utilized:
 - Selected clearly visible sites in high-resolution imagery
 - Focused on large, well-preserved sites for initial training
 
-###  3.4. <a name='EnvironmentalConsiderations'></a>Environmental Considerations
+###  3.4. <a name='DatasetCreation'></a>Dataset Creation
+To create the training datasets in Google Earth Engine, you'll need to create two distinct Feature Collections:
+
+####  3.4.1. <a name='SitesFeatureCollection'></a>"Sites" Feature Collection (class = 1)
+- Create polygons around known archaeological mounds
+- Each polygon should outline a clear, visible archaeological mound
+- Required properties:
+  * 'class': Must be set to 1
+  * Optional: Add descriptive properties (name, type, area, etc.)
+
+####  3.4.2. <a name='OtherFeatureCollection'></a>"Other" Feature Collection (class = 0)
+- Create polygons around non-mound features
+- Include diverse landscape features:
+  * Desert areas
+  * Vegetation patches
+  * Water bodies
+  * Modern settlements
+  * Natural soil features
+- Required properties:
+  * 'class': Must be set to 0
+  * Optional: Add descriptive properties (name, type, area, etc.)
+
+####  3.4.3. <a name='BestPractices'></a>Best Practices for Dataset Creation
+1. Training Data Selection:
+   - Minimum 5 well-preserved mound sites
+   - Around 20 validation sites
+   - Representative selection of "other" features from your study area
+
+2. Site Selection Guidelines:
+   - Focus on clear, visible sites for initial training
+   - Select from areas with optimal visibility (e.g., dahar/mud flat areas)
+   - Use high-resolution imagery in Google Earth Engine for accurate polygon boundaries
+
+3. Quality Considerations:
+   - Ensure polygons accurately outline feature boundaries
+   - Include a diverse range of non-mound features
+   - Document any additional properties that might be useful for analysis
+
+###  3.5. <a name='EnvironmentalConsiderations'></a>Environmental Considerations
 - Modern agricultural areas can interfere with detection
 - Sand dunes can partially or completely cover sites
 - Best results come from dahar (mud flat) areas
@@ -302,7 +344,7 @@ The power of Random Forest comes from:
 
 ##  6. <a name='ImplementationArchitecture'></a>Implementation Architecture
 
-###  7.1. <a name='PlatformComponents'></a>Platform Components
+###  6.1. <a name='PlatformComponents'></a>Platform Components
 1. **GitHub Repository**
    - Source code management
    - Version control
@@ -318,7 +360,7 @@ The power of Random Forest comes from:
    - Machine learning execution
    - Result generation
 
-###  7.2. <a name='DirectoryStructure'></a>Directory Structure
+###  6.2. <a name='DirectoryStructure'></a>Directory Structure
 ```plaintext
 fortune-and-glory/
 ├── .github/
