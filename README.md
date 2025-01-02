@@ -149,6 +149,100 @@ To create the training datasets in Google Earth Engine, you'll need to create tw
    - Include a diverse range of non-mound features
    - Document any additional properties that might be useful for analysis
 
+####  3.4.4. <a name='DatasetFormat'></a>Dataset Format Examples
+The training data can be imported into Google Earth Engine in several formats. Here are examples of common formats:
+
+1. GeoJSON Format (for importing):
+```json
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[72.1234, 28.5678], [72.1235, 28.5678], [72.1235, 28.5679], [72.1234, 28.5679], [72.1234, 28.5678]]]
+      },
+      "properties": {
+        "class": 1,
+        "name": "Archaeological Mound 1",
+        "area_sqm": 5000,
+        "height_m": 3.5,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[72.2345, 28.6789], [72.2346, 28.6789], [72.2346, 28.6790], [72.2345, 28.6790], [72.2345, 28.6789]]]
+      },
+      "properties": {
+        "class": 0,
+        "name": "Desert Area 1",
+        "type": "natural_feature",
+        "notes": "sandy area with vegetation"
+      }
+    }
+  ]
+}
+```
+
+2. Google Earth Engine FeatureCollection Format:
+```javascript
+// Sites Feature Collection (class = 1)
+var sites = ee.FeatureCollection([
+  ee.Feature(
+    ee.Geometry.Polygon([[
+      [72.1234, 28.5678],
+      [72.1235, 28.5678],
+      [72.1235, 28.5679],
+      [72.1234, 28.5679],
+      [72.1234, 28.5678]
+    ]]), {
+      'class': 1,
+      'name': 'Archaeological Mound 1',
+      'area_sqm': 5000,
+      'height_m': 3.5,
+      'confidence': 'high'
+    }
+  )
+]);
+
+// Other Features Collection (class = 0)
+var others = ee.FeatureCollection([
+  ee.Feature(
+    ee.Geometry.Polygon([[
+      [72.2345, 28.6789],
+      [72.2346, 28.6789],
+      [72.2346, 28.6790],
+      [72.2345, 28.6790],
+      [72.2345, 28.6789]
+    ]]), {
+      'class': 0,
+      'name': 'Desert Area 1',
+      'type': 'natural_feature',
+      'notes': 'sandy area with vegetation'
+    }
+  )
+]);
+
+// Merge collections for training
+var trainingData = sites.merge(others);
+```
+
+The key requirements for either format are:
+- Each feature must be a polygon geometry
+- Each feature must have a 'class' property (1 for sites, 0 for non-sites)
+- Additional properties are optional but can be useful for documentation
+- Coordinates should be in decimal degrees (longitude, latitude)
+
+You can create these datasets by:
+1. Drawing polygons in Google Earth Pro and exporting as KML/KMZ
+2. Using QGIS to create and export as GeoJSON
+3. Drawing directly in Google Earth Engine's Code Editor
+4. Converting from existing archaeological survey data
+
 ###  3.5. <a name='EnvironmentalConsiderations'></a>Environmental Considerations
 - Modern agricultural areas can interfere with detection
 - Sand dunes can partially or completely cover sites
