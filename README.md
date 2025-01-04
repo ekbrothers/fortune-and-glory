@@ -72,10 +72,52 @@ This project implements the Orengo et al. (2020) approach to archaeological site
 
 ##  2. <a name='ResearchFoundation'></a>Research Foundation
 
-This implementation is based on Orengo et al.'s 2020 paper:
+This implementation builds upon two key research papers:
+
+### Orengo et al. (2020)
 - "Automated detection of archaeological mounds using machine-learning classification of multisensor and multitemporal satellite data"
 - Published in: Proceedings of the National Academy of Sciences
 - [Original paper](https://www.researchgate.net/publication/343098080)
+
+### Davis et al. (2018) - Key Study on Lidar-Based Detection
+- "Automated mound detection using lidar and object-based image analysis in Beaufort County, South Carolina"
+- Published in: Southeastern Archaeology
+- DOI: 10.1080/0734578X.2018.1482186
+
+Key findings from Davis et al. (2018):
+
+1. Detection Methodology:
+   - Combined lidar data with object-based image analysis (OBIA)
+   - Used morphometric classification and statistical template matching
+   - Identified over 160 previously undetected mound features
+   - Achieved successful validation through ground surveys
+
+2. Technical Approach:
+   - Utilized publicly available lidar data (1.2m resolution)
+   - Created multiple raster analyses: slope, focal statistics, RRIM
+   - Implemented template matching with 15 templates from 29 known features
+   - Applied filtering parameters to minimize false positives
+
+3. Validation Results:
+   - Ground-truthed 5 identified features
+   - Confirmed 2 new archaeological sites:
+     * Previously unknown shell ring with ~15m plaza
+     * Precontact mound rising ~2m from surroundings
+   - Only 20 of 186 identified features were previously recorded
+
+4. Significance:
+   - Demonstrated effectiveness in heavily vegetated areas
+   - Provided systematic survey capability for large areas
+   - Identified features missed by traditional pedestrian surveys
+   - Offered cost-effective method for archaeological prospection
+
+5. Limitations:
+   - Minimum feature height requirement (0.5m)
+   - May miss eroded or disturbed features
+   - Requires regional calibration of templates
+   - False positives from modern landscape features
+
+This study demonstrates the potential of automated detection methods in archaeology, particularly in challenging survey environments. Its methodology complements our satellite-based approach by offering high-resolution ground feature detection capabilities.
 
 ###  2.1. <a name='ImplementationResources'></a>Implementation Resources
 1. [Earth Engine JavaScript API](https://developers.google.com/earth-engine/guides/getstarted)
