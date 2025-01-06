@@ -67,69 +67,26 @@ This project implements automated archaeological site detection using modern Dev
 
 ###  1.1. <a name='CoreObjectives'></a>Core Objectives
 - Detect prehistoric mounds in Ohio using satellite data
-- Enable reproducible archaeological prospection
-- Automate the detection process through GitHub Actions
-- Ensure secure credential management
 
 ###  1.2. <a name='KeyFeatures'></a>Key Features
 - Automated Earth Engine processing
-- Secure service account authentication
 - Cloud Storage integration
 - Configurable execution schedules
 
 ##  2. <a name='StudyArea:OhiosPrehistoricMounds'></a>Study Area: Ohio's Prehistoric Mounds
 
-Our detection system focuses on identifying prehistoric earthen mounds in Ohio, which represent some of the most significant archaeological features in North America.
+This investigation focuses on the detection and analysis of prehistoric earthen mounds across Ohio, which constitute some of North America's most significant archaeological features. These monumental structures exhibit distinctive physical characteristics, with heights ranging from 3-30 feet (1-9 meters) and diameters spanning 20-300 feet (6-91 meters). The mounds predominantly manifest in conical, elongated, or effigy forms, constructed primarily from earth and clay, with occasional stone or gravel stratification. In contemporary settings, these structures are typically covered with vegetation.
 
 ###  2.1. <a name='MoundCharacteristics'></a>Mound Characteristics
-- **Physical Properties**:
-  * Height: Typically 3-30 feet (1-9 meters)
-  * Diameter: Range from 20-300 feet (6-91 meters)
-  * Shape: Conical, elongated, or effigy forms
-  * Composition: Primarily earth and clay, sometimes with stone or gravel layers
-  * Surface: Often grass-covered in modern times
-
-- **Key Features**:
-  * Artificial construction
-  * Geometric or animal-shaped forms
-  * Deliberate soil layering
-  * Cultural artifacts within structure
-  * Organized placement in landscape
+The mounds are characterized by their artificial construction, featuring precise geometric or zoomorphic forms. Their internal structure reveals deliberate soil layering techniques, often incorporating cultural artifacts within their matrix. The spatial distribution of these monuments demonstrates intentional landscape organization, suggesting sophisticated prehistoric planning and engineering capabilities.
 
 ###  2.2. <a name='CulturalContext'></a>Cultural Context
-- **Builders**:
-  * Adena Culture (800 BCE - 100 CE)
-  * Hopewell Culture (100 BCE - 500 CE)
-  * Fort Ancient Culture (1000-1750 CE)
-
-- **Primary Functions**:
-  * Burial mounds (most common)
-  * Ceremonial platforms
-  * Astronomical alignments
-  * Cultural/territorial markers
-  * Elite residences (platform mounds)
+The construction of these monuments spans multiple cultural periods, beginning with the Adena (800 BCE - 100 CE), followed by the Hopewell (100 BCE - 500 CE), and continuing through the Fort Ancient Culture (1000-1750 CE). These structures served diverse functions within their respective societies, primarily as burial monuments but also as ceremonial platforms, astronomical observation points, cultural/territorial markers, and occasionally as elite residential platforms.
 
 ###  2.3. <a name='ConstructionMethods'></a>Construction Methods
-- **Building Process**:
-  1. Site preparation (clearing and leveling)
-  2. Initial platform construction
-  3. Layer-by-layer addition of soil
-  4. Inclusion of burials or artifacts
-  5. Final capping and shaping
+The architectural process involved systematic site preparation through clearing and leveling, followed by initial platform construction. Builders employed a methodical layer-by-layer soil addition technique, often incorporating culturally significant artifacts and burials at specific construction phases. The process culminated in final capping and precise shaping of the monument. Construction materials were sourced locally, primarily utilizing soils, clay deposits, sand layers, and gravel, with occasional incorporation of stone slabs for structural integrity.
 
-- **Materials Used**:
-  * Local soils
-  * Clay deposits
-  * Sand layers
-  * Gravel deposits
-  * Stone slabs (in some cases)
-
-- **Detection Challenges**:
-  * Modern agricultural impact
-  * Erosion and weathering
-  * Urban development
-  * Vegetation cover
-  * Historic looting/disturbance
+Contemporary detection efforts face significant challenges from various environmental and anthropogenic factors. These include agricultural impact, natural erosion and weathering processes, urban development encroachment, dense vegetation cover, and historical looting activities. These factors necessitate sophisticated remote sensing approaches for effective identification and documentation of these archaeological features.
 
 ##  3. <a name='ResearchFoundation'></a>Research Foundation
 
