@@ -1,4 +1,4 @@
-# Archaeological Site Detection Using Machine Learning: GitHub-based Implementation
+# Archaeological Site Detection Using Machine Learning
 
 <!-- vscode-markdown-toc -->
 * 1. [Overview](#Overview)
