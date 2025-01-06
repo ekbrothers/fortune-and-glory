@@ -1,58 +1,58 @@
 # Archaeological Site Detection Using Machine Learning
 
 <!-- vscode-markdown-toc -->
-* 1. [Overview](#Overview)
-	* 1.1. [Core Objectives](#CoreObjectives)
-	* 1.2. [Key Features](#KeyFeatures)
-* 2. [Study Area: Ohio's Prehistoric Mounds](#StudyArea:OhiosPrehistoricMounds)
-	* 2.1. [Mound Characteristics](#MoundCharacteristics)
-	* 2.2. [Cultural Context](#CulturalContext)
-	* 2.3. [Construction Methods](#ConstructionMethods)
-* 3. [Research Foundation](#ResearchFoundation)
-	* 3.1. [Orengo et al. (2020)](#Orengoetal.2020)
-	* 3.2. [Davis et al. (2018) - Key Study on Lidar-Based Detection](#Davisetal.2018-KeyStudyonLidar-BasedDetection)
-	* 3.3. [Implementation Resources](#ImplementationResources)
-* 4. [Original Research Context](#OriginalResearchContext)
-	* 4.1. [Purpose of the Script](#PurposeoftheScript)
-	* 4.2. [Technical Foundation](#TechnicalFoundation)
-		* 4.2.1. [SAR (Synthetic Aperture Radar) Capabilities](#SARSyntheticApertureRadarCapabilities)
-		* 4.2.2. [Multispectral Analysis](#MultispectralAnalysis)
-	* 4.3. [Training Data Methodology](#TrainingDataMethodology)
-	* 4.4. [Dataset Creation](#DatasetCreation)
-		* 4.4.1. ["Sites" Feature Collection (class = 1)](#SitesFeatureCollectionclass1)
-		* 4.4.2. ["Other" Feature Collection (class = 0)](#OtherFeatureCollectionclass0)
-		* 4.4.3. [Best Practices for Dataset Creation](#BestPracticesforDatasetCreation)
-		* 4.4.4. [Dataset Format Examples](#DatasetFormatExamples)
-	* 4.5. [Environmental Considerations](#EnvironmentalConsiderations)
-* 5. [Configuration Parameters Guide](#ConfigurationParametersGuide)
-	* 5.1. [Core Parameters](#CoreParameters)
-		* 5.1.1. [Map Center Configuration](#MapCenterConfiguration)
-		* 5.1.2. [Iteration Identifier](#IterationIdentifier)
-		* 5.1.3. [Classification Parameters](#ClassificationParameters)
-		* 5.1.4. [Filtering Parameters](#FilteringParameters)
-		* 5.1.5. [Date Ranges](#DateRanges)
-		* 5.1.6. [Band Selection](#BandSelection)
-* 6. [Understanding the Technology](#UnderstandingtheTechnology)
-	* 6.1. [Satellite Imagery Systems](#SatelliteImagerySystems)
-	* 6.2. [Google Earth Engine](#GoogleEarthEngine)
-	* 6.3. [Random Forest Classification](#RandomForestClassification)
-		* 6.3.1. [How Random Forest Works](#HowRandomForestWorks)
-* 7. [Implementation Architecture](#ImplementationArchitecture)
-	* 7.1. [Platform Components](#PlatformComponents)
-	* 7.2. [Directory Structure](#DirectoryStructure)
-* 8. [Detection Pipeline](#DetectionPipeline)
-* 9. [Step-by-Step Analysis Process](#Step-by-StepAnalysisProcess)
-	* 9.1. [Data Collection and Preprocessing](#DataCollectionandPreprocessing)
-		* 9.1.1. [Sentinel-1 Radar Collection](#Sentinel-1RadarCollection)
-		* 9.1.2. [Sentinel-2 Optical Collection](#Sentinel-2OpticalCollection)
-	* 9.2. [Feature Engineering](#FeatureEngineering)
-		* 9.2.1. [Radar Feature Development](#RadarFeatureDevelopment)
-		* 9.2.2. [Optical Feature Processing](#OpticalFeatureProcessing)
-	* 9.3. [Machine Learning Classification](#MachineLearningClassification)
-	* 9.4. [Post-Processing and Filtering](#Post-ProcessingandFiltering)
-* 10. [References & Resources](#ReferencesResources)
-	* 10.1. [Implementation Resources](#ImplementationResources-1)
-	* 10.2. [Repository](#Repository)
+* [Overview](#Overview)
+	* [Core Objectives](#CoreObjectives)
+	* [Key Features](#KeyFeatures)
+* [Study Area: Ohio's Prehistoric Mounds](#StudyArea:OhiosPrehistoricMounds)
+	* [Mound Characteristics](#MoundCharacteristics)
+	* [Cultural Context](#CulturalContext)
+	* [Construction Methods](#ConstructionMethods)
+* [Research Foundation](#ResearchFoundation)
+	* [Orengo et al. (2020)](#Orengoetal.2020)
+	* [Davis et al. (2018) - Key Study on Lidar-Based Detection](#Davisetal.2018-KeyStudyonLidar-BasedDetection)
+	* [Implementation Resources](#ImplementationResources)
+* [Original Research Context](#OriginalResearchContext)
+	* [Purpose of the Script](#PurposeoftheScript)
+	* [Technical Foundation](#TechnicalFoundation)
+		* [SAR (Synthetic Aperture Radar) Capabilities](#SARSyntheticApertureRadarCapabilities)
+		* [Multispectral Analysis](#MultispectralAnalysis)
+	* [Training Data Methodology](#TrainingDataMethodology)
+	* [Dataset Creation](#DatasetCreation)
+		* ["Sites" Feature Collection (class = 1)](#SitesFeatureCollectionclass1)
+		* ["Other" Feature Collection (class = 0)](#OtherFeatureCollectionclass0)
+		* [Best Practices for Dataset Creation](#BestPracticesforDatasetCreation)
+		* [Dataset Format Examples](#DatasetFormatExamples)
+	* [Environmental Considerations](#EnvironmentalConsiderations)
+* [Configuration Parameters Guide](#ConfigurationParametersGuide)
+	* [Core Parameters](#CoreParameters)
+		* [Map Center Configuration](#MapCenterConfiguration)
+		* [Iteration Identifier](#IterationIdentifier)
+		* [Classification Parameters](#ClassificationParameters)
+		* [Filtering Parameters](#FilteringParameters)
+		* [Date Ranges](#DateRanges)
+		* [Band Selection](#BandSelection)
+* [Understanding the Technology](#UnderstandingtheTechnology)
+	* [Satellite Imagery Systems](#SatelliteImagerySystems)
+	* [Google Earth Engine](#GoogleEarthEngine)
+	* [Random Forest Classification](#RandomForestClassification)
+		* [How Random Forest Works](#HowRandomForestWorks)
+* [Implementation Architecture](#ImplementationArchitecture)
+	* [Platform Components](#PlatformComponents)
+	* [Directory Structure](#DirectoryStructure)
+* [Detection Pipeline](#DetectionPipeline)
+* [Step-by-Step Analysis Process](#Step-by-StepAnalysisProcess)
+	* [Data Collection and Preprocessing](#DataCollectionandPreprocessing)
+		* [Sentinel-1 Radar Collection](#Sentinel-1RadarCollection)
+		* [Sentinel-2 Optical Collection](#Sentinel-2OpticalCollection)
+	* [Feature Engineering](#FeatureEngineering)
+		* [Radar Feature Development](#RadarFeatureDevelopment)
+		* [Optical Feature Processing](#OpticalFeatureProcessing)
+	* [Machine Learning Classification](#MachineLearningClassification)
+	* [Post-Processing and Filtering](#Post-ProcessingandFiltering)
+* [References & Resources](#ReferencesResources)
+	* [Implementation Resources](#ImplementationResources-1)
+	* [Repository](#Repository)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -61,43 +61,43 @@
 <!-- /vscode-markdown-toc -->
 
 
-##  1. <a name='Overview'></a>Overview
+## <a name='Overview'></a>Overview
 
 This project implements automated archaeological site detection using modern DevOps practices. We've created a fully automated, GitHub-based workflow that can be triggered manually or run on a schedule to identify prehistoric mounds in Ohio using satellite imagery and machine learning.
 
-###  1.1. <a name='CoreObjectives'></a>Core Objectives
+### <a name='CoreObjectives'></a>Core Objectives
 - Detect prehistoric mounds in Ohio using satellite data
 
-###  1.2. <a name='KeyFeatures'></a>Key Features
+### <a name='KeyFeatures'></a>Key Features
 - Automated Earth Engine processing
 - Cloud Storage integration
 - Configurable execution schedules
 
-##  2. <a name='StudyArea:OhiosPrehistoricMounds'></a>Study Area: Ohio's Prehistoric Mounds
+## <a name='StudyArea:OhiosPrehistoricMounds'></a>Study Area: Ohio's Prehistoric Mounds
 
 This investigation focuses on the detection and analysis of prehistoric earthen mounds across Ohio, which constitute some of North America's most significant archaeological features. These monumental structures exhibit distinctive physical characteristics, with heights ranging from 3-30 feet (1-9 meters) and diameters spanning 20-300 feet (6-91 meters). The mounds predominantly manifest in conical, elongated, or effigy forms, constructed primarily from earth and clay, with occasional stone or gravel stratification. In contemporary settings, these structures are typically covered with vegetation.
 
-###  2.1. <a name='MoundCharacteristics'></a>Mound Characteristics
+### <a name='MoundCharacteristics'></a>Mound Characteristics
 The mounds are characterized by their artificial construction, featuring precise geometric or zoomorphic forms. Their internal structure reveals deliberate soil layering techniques, often incorporating cultural artifacts within their matrix. The spatial distribution of these monuments demonstrates intentional landscape organization, suggesting sophisticated prehistoric planning and engineering capabilities.
 
-###  2.2. <a name='CulturalContext'></a>Cultural Context
+### <a name='CulturalContext'></a>Cultural Context
 The construction of these monuments spans multiple cultural periods, beginning with the Adena (800 BCE - 100 CE), followed by the Hopewell (100 BCE - 500 CE), and continuing through the Fort Ancient Culture (1000-1750 CE). These structures served diverse functions within their respective societies, primarily as burial monuments but also as ceremonial platforms, astronomical observation points, cultural/territorial markers, and occasionally as elite residential platforms.
 
-###  2.3. <a name='ConstructionMethods'></a>Construction Methods
+### <a name='ConstructionMethods'></a>Construction Methods
 The architectural process involved systematic site preparation through clearing and leveling, followed by initial platform construction. Builders employed a methodical layer-by-layer soil addition technique, often incorporating culturally significant artifacts and burials at specific construction phases. The process culminated in final capping and precise shaping of the monument. Construction materials were sourced locally, primarily utilizing soils, clay deposits, sand layers, and gravel, with occasional incorporation of stone slabs for structural integrity.
 
 Contemporary detection efforts face significant challenges from various environmental and anthropogenic factors. These include agricultural impact, natural erosion and weathering processes, urban development encroachment, dense vegetation cover, and historical looting activities. These factors necessitate sophisticated remote sensing approaches for effective identification and documentation of these archaeological features.
 
-##  3. <a name='ResearchFoundation'></a>Research Foundation
+## <a name='ResearchFoundation'></a>Research Foundation
 
 This implementation builds upon two key research papers:
 
-###  3.1. <a name='Orengoetal.2020'></a>Orengo et al. (2020)
+### <a name='Orengoetal.2020'></a>Orengo et al. (2020)
 - "Automated detection of archaeological mounds using machine-learning classification of multisensor and multitemporal satellite data"
 - Published in: Proceedings of the National Academy of Sciences
 - [Original paper](https://www.researchgate.net/publication/343098080)
 
-###  3.2. <a name='Davisetal.2018-KeyStudyonLidar-BasedDetection'></a>Davis et al. (2018) - Key Study on Lidar-Based Detection
+### <a name='Davisetal.2018-KeyStudyonLidar-BasedDetection'></a>Davis et al. (2018) - Key Study on Lidar-Based Detection
 - "Automated mound detection using lidar and object-based image analysis in Beaufort County, South Carolina"
 - Published in: Southeastern Archaeology
 - DOI: 10.1080/0734578X.2018.1482186
@@ -137,33 +137,33 @@ Key findings from Davis et al. (2018):
 
 This study demonstrates the potential of automated detection methods in archaeology, particularly in challenging survey environments. Its methodology complements our satellite-based approach by offering high-resolution ground feature detection capabilities.
 
-###  3.3. <a name='ImplementationResources'></a>Implementation Resources
+### <a name='ImplementationResources'></a>Implementation Resources
 1. [Earth Engine JavaScript API](https://developers.google.com/earth-engine/guides/getstarted)
 2. [GitHub Actions Documentation](https://docs.github.com/en/actions)
 3. [Original Implementation](https://github.com/horengo/Orengo_et_al_2020_PNAS)
 
-##  4. <a name='OriginalResearchContext'></a>Original Research Context
+## <a name='OriginalResearchContext'></a>Original Research Context
 
 This implementation is based on research that provides important context about the script and its purpose:
 
-###  4.1. <a name='PurposeoftheScript'></a>Purpose of the Script
+### <a name='PurposeoftheScript'></a>Purpose of the Script
 - Designed to detect archaeological mounds in arid/semi-arid environments
 - Specifically targets the Cholistan Desert in Pakistan, containing important Indus Civilization sites
 - Combines both Sentinel-1 (radar) and Sentinel-2 (multispectral) data for better detection accuracy
 
-###  4.2. <a name='TechnicalFoundation'></a>Technical Foundation
+### <a name='TechnicalFoundation'></a>Technical Foundation
 The script's effectiveness comes from combining multiple remote sensing approaches:
 
-####  4.2.1. <a name='SARSyntheticApertureRadarCapabilities'></a>SAR (Synthetic Aperture Radar) Capabilities
+#### <a name='SARSyntheticApertureRadarCapabilities'></a>SAR (Synthetic Aperture Radar) Capabilities
 - Detects soil roughness and texture
 - Penetrates dry, sandy, loose soils
 - Shows compact soil characteristics of archaeological mounds
 
-####  4.2.2. <a name='MultispectralAnalysis'></a>Multispectral Analysis
+#### <a name='MultispectralAnalysis'></a>Multispectral Analysis
 - Identifies specific soil signatures associated with ancient settlements
 - Combination with SAR helps discriminate between archaeological mounds and natural features
 
-###  4.3. <a name='TrainingDataMethodology'></a>Training Data Methodology
+### <a name='TrainingDataMethodology'></a>Training Data Methodology
 The original research utilized:
 - 25 well-known mound sites total
   - 5 sites for training
@@ -171,17 +171,17 @@ The original research utilized:
 - Selected clearly visible sites in high-resolution imagery
 - Focused on large, well-preserved sites for initial training
 
-###  4.4. <a name='DatasetCreation'></a>Dataset Creation
+### <a name='DatasetCreation'></a>Dataset Creation
 To create the training datasets in Google Earth Engine, you'll need to create two distinct Feature Collections:
 
-####  4.4.1. <a name='SitesFeatureCollectionclass1'></a>"Sites" Feature Collection (class = 1)
+#### <a name='SitesFeatureCollectionclass1'></a>"Sites" Feature Collection (class = 1)
 - Create polygons around known archaeological mounds
 - Each polygon should outline a clear, visible archaeological mound
 - Required properties:
   * 'class': Must be set to 1
   * Optional: Add descriptive properties (name, type, area, etc.)
 
-####  4.4.2. <a name='OtherFeatureCollectionclass0'></a>"Other" Feature Collection (class = 0)
+#### <a name='OtherFeatureCollectionclass0'></a>"Other" Feature Collection (class = 0)
 - Create polygons around non-mound features
 - Include diverse landscape features:
   * Desert areas
@@ -193,7 +193,7 @@ To create the training datasets in Google Earth Engine, you'll need to create tw
   * 'class': Must be set to 0
   * Optional: Add descriptive properties (name, type, area, etc.)
 
-####  4.4.3. <a name='BestPracticesforDatasetCreation'></a>Best Practices for Dataset Creation
+#### <a name='BestPracticesforDatasetCreation'></a>Best Practices for Dataset Creation
 1. Training Data Selection:
    - Minimum 5 well-preserved mound sites
    - Around 20 validation sites
@@ -209,7 +209,7 @@ To create the training datasets in Google Earth Engine, you'll need to create tw
    - Include a diverse range of non-mound features
    - Document any additional properties that might be useful for analysis
 
-####  4.4.4. <a name='DatasetFormatExamples'></a>Dataset Format Examples
+#### <a name='DatasetFormatExamples'></a>Dataset Format Examples
 The training data can be imported into Google Earth Engine in several formats. Here are examples of common formats:
 
 1. GeoJSON Format (for importing):
@@ -303,17 +303,17 @@ You can create these datasets by:
 3. Drawing directly in Google Earth Engine's Code Editor
 4. Converting from existing archaeological survey data
 
-###  4.5. <a name='EnvironmentalConsiderations'></a>Environmental Considerations
+### <a name='EnvironmentalConsiderations'></a>Environmental Considerations
 - Modern agricultural areas can interfere with detection
 - Sand dunes can partially or completely cover sites
 - Best results come from dahar (mud flat) areas
 - Sites near modern development or irrigation may be harder to detect
 
-##  5. <a name='ConfigurationParametersGuide'></a>Configuration Parameters Guide
+## <a name='ConfigurationParametersGuide'></a>Configuration Parameters Guide
 
-###  5.1. <a name='CoreParameters'></a>Core Parameters
+### <a name='CoreParameters'></a>Core Parameters
 
-####  5.1.1. <a name='MapCenterConfiguration'></a>Map Center Configuration
+#### <a name='MapCenterConfiguration'></a>Map Center Configuration
 ```javascript
 mapCenter: {
     longitude: 72.0428,
@@ -330,7 +330,7 @@ mapCenter: {
   - 13-15: City/town level
   - 16+: Building/street level
 
-####  5.1.2. <a name='IterationIdentifier'></a>Iteration Identifier
+#### <a name='IterationIdentifier'></a>Iteration Identifier
 ```javascript
 iteration: 'it03'
 ```
@@ -341,7 +341,7 @@ iteration: 'it03'
   2. Filtered raster: 'rf128_s1-s2_prob_[iteration]_filter[threshold]_med_r[radius]'
   3. Vector export: 'vector_rf128_s1-s2_prob_[iteration]_filter[threshold]_med_r[radius]'
 
-####  5.1.3. <a name='ClassificationParameters'></a>Classification Parameters
+#### <a name='ClassificationParameters'></a>Classification Parameters
 ```javascript
 classification: {
     numberOfTrees: 128,
@@ -356,7 +356,7 @@ classification: {
   - 0.55: Optimal balance between detection and false positives
 - cloudPixelPercentage: Controls cloud filtering strictness
 
-####  5.1.4. <a name='FilteringParameters'></a>Filtering Parameters
+#### <a name='FilteringParameters'></a>Filtering Parameters
 ```javascript
 filtering: {
     medianFilterRadius: 1
@@ -365,7 +365,7 @@ filtering: {
 - Controls noise reduction in final results
 - Larger radius removes more noise but may affect feature edges
 
-####  5.1.5. <a name='DateRanges'></a>Date Ranges
+#### <a name='DateRanges'></a>Date Ranges
 ```javascript
 dateRanges: {
     sentinel1: {
@@ -383,7 +383,7 @@ dateRanges: {
 - Sentinel-1 data available from 2014
 - Sentinel-2 data available from 2015
 
-####  5.1.6. <a name='BandSelection'></a>Band Selection
+#### <a name='BandSelection'></a>Band Selection
 ```javascript
 bands: ['s1vva','s1vha','s1vvd','s1vhd','B2','B3','B4','B5','B6','B7','B8','B8A','B11','B12']
 ```
@@ -392,9 +392,9 @@ bands: ['s1vva','s1vha','s1vvd','s1vhd','B2','B3','B4','B5','B6','B7','B8','B8A'
 - Optical bands (B*): Capture spectral signatures
 - Critical for feature detection - modify with caution
 
-##  6. <a name='UnderstandingtheTechnology'></a>Understanding the Technology
+## <a name='UnderstandingtheTechnology'></a>Understanding the Technology
 
-###  6.1. <a name='SatelliteImagerySystems'></a>Satellite Imagery Systems
+### <a name='SatelliteImagerySystems'></a>Satellite Imagery Systems
 
 The Sentinel satellites are part of the European Space Agency's Copernicus program, providing free earth observation data to the public. We use two complementary systems:
 
@@ -408,15 +408,15 @@ Sentinel-2 works more like a digital camera, but it sees more than our eyes can.
 - Short-wave infrared (useful for soil moisture and mineral content)
 When archaeological remains affect soil moisture or plant growth, they create patterns we can detect in these images.
 
-###  6.2. <a name='GoogleEarthEngine'></a>Google Earth Engine
+### <a name='GoogleEarthEngine'></a>Google Earth Engine
 
 Google Earth Engine serves as our processing platform. Think of it as a massive computer dedicated to analyzing satellite imagery. It stores petabytes of satellite data (one petabyte is a million gigabytes) and provides tools to analyze this data efficiently. Instead of downloading satellite images to our computers, we send our analysis code to where the data lives.
 
-###  6.3. <a name='RandomForestClassification'></a>Random Forest Classification
+### <a name='RandomForestClassification'></a>Random Forest Classification
 
 We use a machine learning technique called Random Forest to identify potential archaeological sites. This is a traditional machine learning algorithm, not an LLM (Large Language Model), meaning it works purely with numerical data patterns rather than understanding concepts.
 
-####  6.3.1. <a name='HowRandomForestWorks'></a>How Random Forest Works
+#### <a name='HowRandomForestWorks'></a>How Random Forest Works
 
 1. The Forest Structure:
 ```javascript
@@ -496,9 +496,9 @@ The power of Random Forest comes from:
 3. Majority Voting: Combines all trees' decisions
 4. Probability Output: Can adjust threshold based on needs
 
-##  7. <a name='ImplementationArchitecture'></a>Implementation Architecture
+## <a name='ImplementationArchitecture'></a>Implementation Architecture
 
-###  7.1. <a name='PlatformComponents'></a>Platform Components
+### <a name='PlatformComponents'></a>Platform Components
 1. **GitHub Repository**
    - Source code management
    - Version control
@@ -514,7 +514,7 @@ The power of Random Forest comes from:
    - Machine learning execution
    - Result generation
 
-###  7.2. <a name='DirectoryStructure'></a>Directory Structure
+### <a name='DirectoryStructure'></a>Directory Structure
 ```plaintext
 fortune-and-glory/
 ├── .github/
@@ -532,15 +532,15 @@ fortune-and-glory/
 └── .gitignore
 ```
 
-##  8. <a name='DetectionPipeline'></a>Detection Pipeline
+## <a name='DetectionPipeline'></a>Detection Pipeline
 Our implementation builds upon Orengo et al.'s methodology while adapting it for cloud-based automation. The process combines radar and optical satellite imagery to identify potential archaeological sites through a series of sophisticated analysis steps.
 
-##  9. <a name='Step-by-StepAnalysisProcess'></a>Step-by-Step Analysis Process
+## <a name='Step-by-StepAnalysisProcess'></a>Step-by-Step Analysis Process
 
-###  9.1. <a name='DataCollectionandPreprocessing'></a>Data Collection and Preprocessing
+### <a name='DataCollectionandPreprocessing'></a>Data Collection and Preprocessing
 We begin by gathering two distinct types of satellite observations over our study area. Each type provides unique insights into potential archaeological features.
 
-####  9.1.1. <a name='Sentinel-1RadarCollection'></a>Sentinel-1 Radar Collection
+#### <a name='Sentinel-1RadarCollection'></a>Sentinel-1 Radar Collection
 We gather radar data that can penetrate cloud cover and detect subtle ground variations:
 
 ```javascript
@@ -551,7 +551,7 @@ var s1 = ee.ImageCollection('COPERNICUS/S1_GRD')
 
 This radar data comes from both ascending (northbound) and descending (southbound) satellite passes. The different viewing angles help reveal features that might only be visible from certain directions, much like how archaeologists use raking light to spot subtle ground features at dawn or dusk.
 
-####  9.1.2. <a name='Sentinel-2OpticalCollection'></a>Sentinel-2 Optical Collection
+#### <a name='Sentinel-2OpticalCollection'></a>Sentinel-2 Optical Collection
 For visual and infrared analysis, we collect Sentinel-2 data while carefully filtering out cloudy images:
 
 ```javascript
@@ -564,10 +564,10 @@ var S2_col = ee.ImageCollection('COPERNICUS/S2')
 
 Archaeological sites often affect vegetation growth and soil moisture in ways that become visible in these images, particularly in the infrared bands that human eyes can't see.
 
-###  9.2. <a name='FeatureEngineering'></a>Feature Engineering
+### <a name='FeatureEngineering'></a>Feature Engineering
 After collecting raw data, we derive specialized measurements that help identify archaeological signatures.
 
-####  9.2.1. <a name='RadarFeatureDevelopment'></a>Radar Feature Development
+#### <a name='RadarFeatureDevelopment'></a>Radar Feature Development
 We process radar data to extract both surface texture and potential structural information:
 
 ```javascript
@@ -581,7 +581,7 @@ var composite = ee.Image.cat([
 
 The VV (Vertical-Vertical) polarization excels at detecting human-made structures, while VH (Vertical-Horizontal) reveals surface texture variations that might indicate archaeological remains.
 
-####  9.2.2. <a name='OpticalFeatureProcessing'></a>Optical Feature Processing
+#### <a name='OpticalFeatureProcessing'></a>Optical Feature Processing
 We analyze multiple light wavelengths and calculate vegetation indices:
 
 ```javascript
@@ -594,7 +594,7 @@ Each spectral band provides unique archaeological insights:
 - B11 and B12 (shortwave infrared) show soil moisture variations
 - Visible light bands (B2-B4) capture traditional visual features
 
-###  9.3. <a name='MachineLearningClassification'></a>Machine Learning Classification
+### <a name='MachineLearningClassification'></a>Machine Learning Classification
 At the core of our detection system lies a Random Forest classifier that employs 128 decision trees:
 
 ```javascript
@@ -607,7 +607,7 @@ var classifier = ee.Classifier.smileRandomForest({
 
 This classifier functions like a panel of 128 experts, each examining different aspects of the landscape. Some focus on vegetation patterns, others on soil moisture, and still others on terrain shape. Their collective wisdom helps identify likely archaeological sites.
 
-###  9.4. <a name='Post-ProcessingandFiltering'></a>Post-Processing and Filtering
+### <a name='Post-ProcessingandFiltering'></a>Post-Processing and Filtering
 We apply sophisticated filtering to refine our initial detections:
 
 ```javascript
@@ -622,13 +622,13 @@ This crucial step:
 - Ensures detected sites meet size requirements
 - Groups related detections into coherent site boundaries
 
-##  10. <a name='ReferencesResources'></a>References & Resources
+## <a name='ReferencesResources'></a>References & Resources
 
-###  10.1. <a name='ImplementationResources-1'></a>Implementation Resources
+### <a name='ImplementationResources-1'></a>Implementation Resources
 1. [Original Paper](https://www.researchgate.net/publication/343098080)
 2. [Earth Engine JavaScript API](https://developers.google.com/earth-engine/guides/getstarted)
 3. [GitHub Actions Documentation](https://docs.github.com/en/actions)
 
-###  10.2. <a name='Repository'></a>Repository
+### <a name='Repository'></a>Repository
 - Main Repository: [fortune-and-glory](https://github.com/yourusername/fortune-and-glory)
 - Related Projects: [Original Implementation](https://github.com/horengo/Orengo_et_al_2020_PNAS)
