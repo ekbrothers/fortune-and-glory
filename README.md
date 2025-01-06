@@ -90,7 +90,7 @@ Contemporary detection efforts face significant challenges from various environm
 
 ## <a name='ResearchFoundation'></a>Research Foundation
 
-This implementation builds upon two key research papers:
+This implementation builds upon three key research papers:
 
 ### <a name='Orengoetal.2020'></a>Orengo et al. (2020)
 - "Automated detection of archaeological mounds using machine-learning classification of multisensor and multitemporal satellite data"
@@ -136,6 +136,52 @@ Key findings from Davis et al. (2018):
    - False positives from modern landscape features
 
 This study demonstrates the potential of automated detection methods in archaeology, particularly in challenging survey environments. Its methodology complements our satellite-based approach by offering high-resolution ground feature detection capabilities.
+
+### <a name='Estanqueiroetal.2023'></a>Estanqueiro et al. (2023)
+- "Sentinel-2 imagery analyses for archaeological site detection: an application to Late Bronze Age settlements in Serbian Banat, southern Carpathian Basin"
+- Published in: Journal of Archaeological Science: Reports
+- DOI: 10.1016/j.jasrep.2023.104188
+
+Key findings from Estanqueiro et al. (2023):
+
+1. Detection Methodology:
+   - Utilized Sentinel-2 multispectral satellite data
+   - Applied multi-temporal analysis of spectral signatures
+   - Analyzed soil marks from known Late Bronze Age settlements
+   - Combined principal component analysis, band combinations, and vegetation indices
+
+2. Technical Approach:
+   - Used Sentinel-2 Level 2A data (atmospheric-corrected)
+   - Analyzed 10 spectral bands at 10m spatial resolution
+   - Implemented multiple vegetation indices (NDVI, GNDVI, MSR, etc.)
+   - Applied statistical separability analysis (M-statistic)
+
+3. Results:
+   - Identified 102 potential archaeological locations
+   - Sites ranged from a few hectares to 100 ha in size
+   - Located in Banat and Bačka regions
+   - 39% of visited sites confirmed as archaeological
+   - 81.82% of confirmed sites contained Late Bronze Age material
+
+4. Significance:
+   - Demonstrated effectiveness of Sentinel-2 for site detection
+   - Validated through field visits and surface material collection
+   - Proved valuable for large-scale regional surveys
+   - Identified previously unknown archaeological sites
+
+5. Key Technical Insights:
+   - Best site visibility in late Winter/Spring (February-March)
+   - Vegetation indices showed clear impact of archaeological features
+   - PCA using 2nd, 3rd, and 4th components most effective
+   - Band combinations 4-3-2 and 8-4-3 optimal for visualization
+
+6. Limitations and Considerations:
+   - Results affected by agricultural field conditions
+   - Requires careful timing with ploughing cycles
+   - Some false positives from natural soil variations
+   - Need for ground-truthing to confirm site chronology
+
+This study provides valuable insights into using freely available Sentinel-2 data for archaeological prospection, demonstrating its effectiveness in identifying large-scale settlement patterns and the importance of multi-temporal analysis in archaeological remote sensing.
 
 ### <a name='ImplementationResources'></a>Implementation Resources
 1. [Earth Engine JavaScript API](https://developers.google.com/earth-engine/guides/getstarted)
