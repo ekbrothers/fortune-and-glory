@@ -3,7 +3,6 @@
 <!-- vscode-markdown-toc -->
 * [Overview](#Overview)
 	* [Core Objectives](#CoreObjectives)
-	* [Key Features](#KeyFeatures)
 * [Study Area: Ohio's Prehistoric Mounds](#StudyArea:OhiosPrehistoricMounds)
 	* [Mound Characteristics](#MoundCharacteristics)
 	* [Cultural Context](#CulturalContext)
@@ -11,7 +10,7 @@
 * [Research Foundation](#ResearchFoundation)
 	* [Orengo et al. (2020)](#Orengoetal.2020)
 	* [Davis et al. (2018) - Key Study on Lidar-Based Detection](#Davisetal.2018-KeyStudyonLidar-BasedDetection)
-	* [Implementation Resources](#ImplementationResources)
+	* [Estanqueiro et al. (2023)](#Estanqueiroetal.2023)
 * [Original Research Context](#OriginalResearchContext)
 	* [Purpose of the Script](#PurposeoftheScript)
 	* [Technical Foundation](#TechnicalFoundation)
@@ -39,7 +38,6 @@
 		* [How Random Forest Works](#HowRandomForestWorks)
 * [Implementation Architecture](#ImplementationArchitecture)
 	* [Platform Components](#PlatformComponents)
-	* [Directory Structure](#DirectoryStructure)
 * [Detection Pipeline](#DetectionPipeline)
 * [Step-by-Step Analysis Process](#Step-by-StepAnalysisProcess)
 	* [Data Collection and Preprocessing](#DataCollectionandPreprocessing)
@@ -50,12 +48,9 @@
 		* [Optical Feature Processing](#OpticalFeatureProcessing)
 	* [Machine Learning Classification](#MachineLearningClassification)
 	* [Post-Processing and Filtering](#Post-ProcessingandFiltering)
-* [References & Resources](#ReferencesResources)
-	* [Implementation Resources](#ImplementationResources-1)
-	* [Repository](#Repository)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
@@ -67,11 +62,6 @@ This project implements automated archaeological site detection using modern Dev
 
 ### <a name='CoreObjectives'></a>Core Objectives
 - Detect prehistoric mounds in Ohio using satellite data
-
-### <a name='KeyFeatures'></a>Key Features
-- Automated Earth Engine processing
-- Cloud Storage integration
-- Configurable execution schedules
 
 ## <a name='StudyArea:OhiosPrehistoricMounds'></a>Study Area: Ohio's Prehistoric Mounds
 
@@ -182,11 +172,6 @@ Key findings from Estanqueiro et al. (2023):
    - Need for ground-truthing to confirm site chronology
 
 This study provides valuable insights into using freely available Sentinel-2 data for archaeological prospection, demonstrating its effectiveness in identifying large-scale settlement patterns and the importance of multi-temporal analysis in archaeological remote sensing.
-
-### <a name='ImplementationResources'></a>Implementation Resources
-1. [Earth Engine JavaScript API](https://developers.google.com/earth-engine/guides/getstarted)
-2. [GitHub Actions Documentation](https://docs.github.com/en/actions)
-3. [Original Implementation](https://github.com/horengo/Orengo_et_al_2020_PNAS)
 
 ## <a name='OriginalResearchContext'></a>Original Research Context
 
@@ -545,38 +530,11 @@ The power of Random Forest comes from:
 ## <a name='ImplementationArchitecture'></a>Implementation Architecture
 
 ### <a name='PlatformComponents'></a>Platform Components
-1. **GitHub Repository**
-   - Source code management
-   - Version control
 
-2. **Google Cloud Platform**
-   - Earth Engine API access
-   - Service account authentication
-   - Cloud Storage for results
-   - Budget monitoring
-
-3. **Earth Engine**
+**Earth Engine**
    - Satellite data processing
    - Machine learning execution
    - Result generation
-
-### <a name='DirectoryStructure'></a>Directory Structure
-```plaintext
-fortune-and-glory/
-├── .github/
-│   └── workflows/
-│       └── archaeological_detection.yml
-├── src/
-│   └── detection.js
-├── terraform/
-│   ├── main.tf
-│   ├── budget.tf
-│   └── provider.tf
-├── key/
-│
-└── README.md
-└── .gitignore
-```
 
 ## <a name='DetectionPipeline'></a>Detection Pipeline
 Our implementation builds upon Orengo et al.'s methodology while adapting it for cloud-based automation. The process combines radar and optical satellite imagery to identify potential archaeological sites through a series of sophisticated analysis steps.
@@ -667,14 +625,3 @@ This crucial step:
 - Eliminates isolated false positives
 - Ensures detected sites meet size requirements
 - Groups related detections into coherent site boundaries
-
-## <a name='ReferencesResources'></a>References & Resources
-
-### <a name='ImplementationResources-1'></a>Implementation Resources
-1. [Original Paper](https://www.researchgate.net/publication/343098080)
-2. [Earth Engine JavaScript API](https://developers.google.com/earth-engine/guides/getstarted)
-3. [GitHub Actions Documentation](https://docs.github.com/en/actions)
-
-### <a name='Repository'></a>Repository
-- Main Repository: [fortune-and-glory](https://github.com/yourusername/fortune-and-glory)
-- Related Projects: [Original Implementation](https://github.com/horengo/Orengo_et_al_2020_PNAS)
