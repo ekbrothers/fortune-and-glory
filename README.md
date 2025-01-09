@@ -2,7 +2,6 @@
 
 <!-- vscode-markdown-toc -->
 * [Overview](#Overview)
-	* [Core Objectives](#CoreObjectives)
 * [Study Area: Ohio's Prehistoric Mounds](#StudyArea:OhiosPrehistoricMounds)
 	* [Mound Characteristics](#MoundCharacteristics)
 	* [Cultural Context](#CulturalContext)
@@ -10,6 +9,7 @@
 * [Research Foundation](#ResearchFoundation)
 	* [Orengo et al. (2020)](#Orengoetal.2020)
 	* [Davis et al. (2018) - Key Study on Lidar-Based Detection](#Davisetal.2018-KeyStudyonLidar-BasedDetection)
+	* [Haines (2011)](#Haines2011)
 	* [Estanqueiro et al. (2023)](#Estanqueiroetal.2023)
 * [Original Research Context](#OriginalResearchContext)
 	* [Purpose of the Script](#PurposeoftheScript)
@@ -48,6 +48,7 @@
 		* [Optical Feature Processing](#OpticalFeatureProcessing)
 	* [Machine Learning Classification](#MachineLearningClassification)
 	* [Post-Processing and Filtering](#Post-ProcessingandFiltering)
+* [Citations](#Citations)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -58,17 +59,24 @@
 
 ## <a name='Overview'></a>Overview
 
-This project implements automated archaeological site detection using modern DevOps practices. We've created a fully automated, GitHub-based workflow that can be triggered manually or run on a schedule to identify prehistoric mounds in Ohio using satellite imagery and machine learning.
-
-### <a name='CoreObjectives'></a>Core Objectives
-- Detect prehistoric mounds in Ohio using satellite data
+This project implements archaeological site detection using modern DevOps practices. We've created a workflow to identify prehistoric mounds in Ohio using satellite imagery and machine learning.
 
 ## <a name='StudyArea:OhiosPrehistoricMounds'></a>Study Area: Ohio's Prehistoric Mounds
 
-This investigation focuses on the detection and analysis of prehistoric earthen mounds across Ohio, which constitute some of North America's most significant archaeological features. These monumental structures exhibit distinctive physical characteristics, with heights ranging from 3-30 feet (1-9 meters) and diameters spanning 20-300 feet (6-91 meters). The mounds predominantly manifest in conical, elongated, or effigy forms, constructed primarily from earth and clay, with occasional stone or gravel stratification. In contemporary settings, these structures are typically covered with vegetation.
+This investigation focuses on the detection and analysis of prehistoric earthen mounds across Ohio, which constitute some of North America's most significant archaeological features. 
+
+These structures exhibit distinctive physical characteristics, with heights ranging from 3-30 feet (1-9 meters) and diameters spanning 20-300 feet (6-91 meters). 
+
+The mounds predominantly manifest in conical, elongated, or effigy forms, constructed primarily from earth and clay, with occasional stone or gravel stratification. 
+
+In contemporary settings, these structures are typically covered with vegetation.
+
+For the purposes of this study, we are focusing on common mounds and not effigy mounds.
 
 ### <a name='MoundCharacteristics'></a>Mound Characteristics
-The mounds are characterized by their artificial construction, featuring precise geometric or zoomorphic forms. Their internal structure reveals deliberate soil layering techniques, often incorporating cultural artifacts within their matrix. The spatial distribution of these monuments demonstrates intentional landscape organization, suggesting sophisticated prehistoric planning and engineering capabilities.
+The mounds are characterized by their artificial construction, featuring precise geometric or zoomorphic forms.
+
+ Their internal structure reveals deliberate soil layering techniques, often incorporating cultural artifacts within their matrix. The spatial distribution of these monuments demonstrates intentional landscape organization, suggesting sophisticated prehistoric planning and engineering capabilities.
 
 ### <a name='CulturalContext'></a>Cultural Context
 The construction of these monuments spans multiple cultural periods, beginning with the Adena (800 BCE - 100 CE), followed by the Hopewell (100 BCE - 500 CE), and continuing through the Fort Ancient Culture (1000-1750 CE). These structures served diverse functions within their respective societies, primarily as burial monuments but also as ceremonial platforms, astronomical observation points, cultural/territorial markers, and occasionally as elite residential platforms.
@@ -126,6 +134,35 @@ Key findings from Davis et al. (2018):
    - False positives from modern landscape features
 
 This study demonstrates the potential of automated detection methods in archaeology, particularly in challenging survey environments. Its methodology complements our satellite-based approach by offering high-resolution ground feature detection capabilities.
+
+### <a name='Haines2011'></a>Haines (2011)
+- "Determining Prehistoric Site Locations in Southwestern Ohio: A Study in GIS Predictive Modeling"
+- Master's thesis, University of Cincinnati, Department of Anthropology
+
+Key findings from Haines (2011):
+
+1. Mound Location Patterns:
+   - Typically found at higher elevations compared to habitation sites
+   - Eastern sites and Point sites were primarily mortuary/mound features
+   - Mounds often appeared in clusters or pairs
+   - Many mounds were connected by constructed pathways
+
+2. Environmental Variables:
+   - Used elevation, slope, aspect, distance from water, and soil type
+   - Achieved 0.82 predictive gain in model validation
+   - 82.3% of sites fell within high probability areas
+   - 15% of study area contained 82% of known sites
+
+3. Methodological Insights:
+   - Used 10m cell size for optimal intersite analysis
+   - Started with high-resolution LiDAR (2.5' pixels) but resampled to 10m
+   - Found that human activity requires more space than very fine-resolution cells can capture
+   - Used average nearest neighbor analysis to confirm non-random site distribution
+   - Created probability categories (high, medium, low) rather than binary predictions
+   - Weighted variables equally to avoid cultural bias
+   - Used additive approach rather than multiplicative for probability zones
+
+This study provides valuable validation metrics and methodological insights for our current approach, particularly in terms of resolution selection and environmental variable integration.
 
 ### <a name='Estanqueiroetal.2023'></a>Estanqueiro et al. (2023)
 - "Sentinel-2 imagery analyses for archaeological site detection: an application to Late Bronze Age settlements in Serbian Banat, southern Carpathian Basin"
@@ -625,3 +662,16 @@ This crucial step:
 - Eliminates isolated false positives
 - Ensures detected sites meet size requirements
 - Groups related detections into coherent site boundaries
+
+## <a name='Citations'></a>Citations
+
+Davis, D. S., Sanger, M. C., & Lipo, C. P. (2018). Automated mound detection using lidar and object-based image analysis in Beaufort County, South Carolina. Southeastern Archaeology, 38(1), 23-37. https://doi.org/10.1080/0734578X.2018.1482186
+[Full Article](https://www.tandfonline.com/doi/abs/10.1080/0734578X.2018.1482186)
+
+Estanqueiro, R., Medović, A., Molloy, B., Molloy, K., Pendić, J., Tapavički-Ilić, M., & Filipović, V. (2023). Sentinel-2 imagery analyses for archaeological site detection: an application to Late Bronze Age settlements in Serbian Banat, southern Carpathian Basin. Journal of Archaeological Science: Reports, 48, 104188. https://doi.org/10.1016/j.jasrep.2023.104188
+[Full Article](https://www.sciencedirect.com/science/article/abs/pii/S2352409X23001116)
+
+Orengo, H. A., Conesa, F. C., Garcia-Molsosa, A., Lobo, A., Green, A. S., Madella, M., & Petrie, C. A. (2020). Automated detection of archaeological mounds using machine-learning classification of multisensor and multitemporal satellite data. Proceedings of the National Academy of Sciences, 117(31), 18240-18250. https://doi.org/10.1073/pnas.2005583117
+[Full Article](https://www.researchgate.net/publication/343098080)
+
+Haines, Angela L. (2011). Determining Prehistoric Site Locations in Southwestern Ohio: A Study in GIS Predictive Modeling. Master's thesis, University of Cincinnati, Department of Anthropology.
