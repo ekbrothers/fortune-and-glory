@@ -57,9 +57,9 @@
 <!-- /vscode-markdown-toc -->
 
 
-## <a name='Overview'></a>Overview
+# Overview
 
-This project implements archaeological site detection using modern DevOps practices. We've created a workflow to identify prehistoric mounds in Ohio using satellite imagery and machine learning.
+This project implements archaeological site detection methods to identify potential prehistoric Native American mounds in Ohio using satellite imagery and machine learning. Building upon published methodologies for archaeological feature detection, this implementation combines multiple satellite data sources with advanced classification techniques to locate and analyze these cultural landmarks.
 
 ## <a name='StudyArea:OhiosPrehistoricMounds'></a>Study Area: Ohio's Prehistoric Mounds
 
